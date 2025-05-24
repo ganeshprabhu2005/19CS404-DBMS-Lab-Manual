@@ -158,4 +158,4 @@ The program should update employee salaries and display a message, or it should 
 ---
 
 ## RESULT
-Thus, the program successfully executed and displayed employee details using a cursor.
+Thus, the program successfully executed and displayed employee details using a cursor.
