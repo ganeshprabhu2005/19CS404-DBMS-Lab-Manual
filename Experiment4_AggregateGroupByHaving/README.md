@@ -1,6 +1,5 @@
 # Experiment 4: Aggregate Functions, Group By and Having Clause
-## Name:shridharshini s
-## Reg.no:212222060240
+
 ## AIM
 To study and implement aggregate functions, GROUP BY, and HAVING clause with suitable examples.
 
@@ -16,200 +15,189 @@ These perform calculations on a set of values and return a single value.
 - *AVG()* – Average of values
 
 *Syntax:*
-```
+sql
 SELECT AGG_FUNC(column_name) FROM table_name WHERE condition;
-```
+
 ### GROUP BY
 Groups records with the same values in specified columns.
 *Syntax:*
-```
+sql
 SELECT column_name, AGG_FUNC(column_name)
 FROM table_name
 GROUP BY column_name;
-```
+
 ### HAVING
 Filters the grouped records based on aggregate conditions.
 *Syntax:*
-```
+sql
 SELECT column_name, AGG_FUNC(column_name)
 FROM table_name
 GROUP BY column_name
 HAVING condition;
-```
+
 
 *Question 1*
+--
+-- ![Screenshot 2025-04-29 130929](https://github.com/user-attachments/assets/36ff204e-3f8b-416d-82fe-eb1d8f89b143)
 
-How many prescriptions were written by each doctor?
 
-Sample tablePrescriptions Table
-```
-SELECT DoctorID, COUNT(*)AS
-TotalPrescriptions
-FROM Prescriptions
-GROUP BY DoctorID;
-```
+sql
+-- select date(AppointmentDateTime) as AppointmentDate, count(*) as  TotalAppointments
+
+from Appointments
+group by AppointmentDate;
+
+
 *Output:*
+![Screenshot 2025-04-29 131010](https://github.com/user-attachments/assets/47d1740e-89ab-4a74-b978-2dd156b5452a)
 
-![image](https://github.com/user-attachments/assets/c5ecb054-0dcb-4489-baa4-2b30c8238a73)
 
 *Question 2*
+---
+-- ![Screenshot 2025-04-29 131505](https://github.com/user-attachments/assets/458094fb-3ec1-464b-a0b1-0e599bf83844)
 
-How many patients are covered by each insurance company?
 
-Sample table:Insurance Table
+sql
+-- select name,email,length(email) as  min_email_length
+from customer
+order by length(email)
+limit 1;
 
-name type
 
-InsuranceID INTEGER PatientID INTEGER InsuranceCompany TEXT PolicyNumber TEXT PolicyHolder TEXT ValidityPeriod TEXT
-```
-SELECT InsuranceCompany,
-COUNT ( DISTINCT PatientID )AS
-TotalPatients
-FROM Insurance
-GROUP BY InsuranceCompany;
-```
 *Output:*
+![Screenshot 2025-04-29 131514](https://github.com/user-attachments/assets/7ff52baa-ed62-4bbd-8ecd-103d7fc949f4)
 
-![image](https://github.com/user-attachments/assets/02784127-99c3-429f-ad06-d69b605a5c7b)
 
 *Question 3*
+---
+--![Screenshot 2025-04-29 131558](https://github.com/user-attachments/assets/d054f243-ab5a-49e1-bdd9-071c29ff5199)
 
-How many patients are there in each city?
-```
-SELECT Address, COUNT(*)AS
-TotalPatients
-FROM Patients
-GROUP BY Address;
-```
+
+sql
+-- select avg(length(email)) as avg_email_length
+from customer
+order by length(email)
+limit 1;
+
+
 *Output:*
-
-![image](https://github.com/user-attachments/assets/38f989b2-c1f9-4278-8f02-1497e0eebb7a)
+![Screenshot 2025-04-29 131605](https://github.com/user-attachments/assets/c279b3db-a9e8-4dcf-b38a-cd467996b4f9)
 
 
 *Question 4*
+---
+-- ![Screenshot 2025-04-29 131915](https://github.com/user-attachments/assets/08bb463d-4280-40ab-9aa0-44359d76ce0a)
 
-Write a SQL query to find the minimum purchase amount.
 
-Sample table: orders
+sql
+-- select sum(purch_amt) as TOTAL
+from orders
 
-ord_no purch_amt ord_date customer_id salesman_id
 
-70001 150.5 2012-10-05 3005 5002
 
-70009 270.65 2012-09-10 3001 5005
-
-70002 65.26 2012-10-05 3002 5001
-
-```
-SELECT MIN(purch_amt)AS
-MINIMUM
-FROM orders;
-```
 *Output:*
 
-![image](https://github.com/user-attachments/assets/77336749-974a-44be-ba09-0ec0fd4e04ad)
-
+![Screenshot 2025-04-29 131922](https://github.com/user-attachments/assets/2eaa2a23-41eb-4ebe-874d-f3cb8da408dc)
 
 *Question 5*
+---
+-- ![Screenshot 2025-04-29 132020](https://github.com/user-attachments/assets/dac02082-7b58-437f-b882-6a4a8577855e)
 
-Write a SQL query to return the total number of rows in the 'customer' table where the city is not Noida.
-```
-SELECT COUNT(*)AS 
-COUNT
-FROM customer
-WHERE city!='Noida';
-```
+
+sql
+-- select jdate,MIN(workhour)
+from employee1
+group by jdate
+having MIN(workhour) <10 ;
+
+
 *Output:*
 
-![image](https://github.com/user-attachments/assets/d1974d6a-e83a-47df-aa64-0256aea51d3e)
+![Screenshot 2025-04-29 132028](https://github.com/user-attachments/assets/7fb2af83-d2fc-4b63-afdc-155a15b9ed1f)
 
 
 *Question 6*
+---
+-- ![Screenshot 2025-04-29 132154](https://github.com/user-attachments/assets/60415fd3-634c-495a-8976-6e0c69331fc7)
 
-Write a SQL query to find the maximum purchase amount.
 
-Sample table: orders
+sql
+-- select max(purch_amt) as MAXIMUM
+from orders
+order by purch_amt;
 
-ord_no purch_amt ord_date customer_id salesman_id
 
-70001 150.5 2012-10-05 3005 5002
-
-70009 270.65 2012-09-10 3001 5005
-
-70002 65.26 2012-10-05 3002 5001
-
-```
-SELECT MAX (purch_amt)AS MAXIMUM
-FROM orders;
-```
 *Output:*
 
-![image](https://github.com/user-attachments/assets/f6e9c531-1bcb-4bb9-bbaa-a6c0b8485a12)
+![Screenshot 2025-04-29 132200](https://github.com/user-attachments/assets/7856ad29-281c-46cd-b4cf-9b0317ccaaa3)
 
 
 *Question 7*
+---
+--![Screenshot 2025-04-29 132439](https://github.com/user-attachments/assets/69505d3d-ec33-4ddb-ad2a-bc32a6897b2d)
 
-Write a SQL query to Calculate the average email length (in characters) for people who lives in Mumbai city
 
-Table: customer
+sql
+-- select address,AVG(salary)
+from customer1
+group by address
+having avg(salary) > 5000
 
-name type
 
-id INTEGER name TEXT
-city TEXT email TEXT phone INTEGER
-
-```
-SELECT AVG(LENGTH(email))AS
-avg_email_length_below_30
-FROM customer
-WHERE city='Mumbai';
-```
 *Output:*
 
-![image](https://github.com/user-attachments/assets/ca601445-a16b-442f-aae8-0900b5334b75)
+![Screenshot 2025-04-29 132444](https://github.com/user-attachments/assets/2b6c1fe5-e596-478e-9bf8-6815e4b0244c)
 
 
 *Question 8*
+---
+-- ![Screenshot 2025-04-29 132528](https://github.com/user-attachments/assets/338964ef-b49c-4a0c-8da4-e748cfac32a8)
 
-Write the SQL query that achieves the grouping of data by age intervals using the expression (age/5)5, calculates the average age for each group, and excludes groups where the average age is not less than 24.
-```
-SELECT
-  (age/5)*5 AS age_group ,
-   AVG(age)
-FROM customer1
-GROUP BY age_group 
-HAVING AVG(age)<24;
-```
+
+sql
+-- select category_id,count(product_name)
+from products
+group by category_id
+having min(category_id) <3
+
+
 *Output:*
 
-![image](https://github.com/user-attachments/assets/3b0e0130-41c2-42cb-b857-2688573e0f7e)
+![Screenshot 2025-04-29 132540](https://github.com/user-attachments/assets/10b3464b-e56c-47a0-97e5-9c196fbbfc27)
 
 
 *Question 9*
+---
+-- ![Screenshot 2025-04-29 132654](https://github.com/user-attachments/assets/475ab1a2-c99e-491c-8eaf-59d85ffe746d)
 
-Write the SQL query that achieves the selection of category and calculates the sum of the product of price and category ID as Revenue for each category from the "products" table, and includes only those products where the total revenue is greater than 25.
-```
-SELECT CATEGORY_ID, SUM(price*category_id) AS Revenue
-FROM products
-GROUP BY category_id
-HAVING SUM(price *category_id)>25;
-```
+
+sql
+-- select sum(inventory) as total
+from fruits
+where unit ='LB'
+
+
 *Output:*
 
-![image](https://github.com/user-attachments/assets/dcd2a606-3aaf-466c-ba73-ae9acfbc394b)
+![Screenshot 2025-04-29 132659](https://github.com/user-attachments/assets/6a62558f-388d-4e8c-ba0b-8b2802c8642d)
 
 
 *Question 10*
+---
+-- ![Screenshot 2025-04-29 133000](https://github.com/user-attachments/assets/31812179-ff28-4a67-ae56-1348dbb07d93)
 
-How many medical records are there for each patient?
-```
-select PatientID, count(RecordID) as 'TotalRecords'
-from MedicalRecords
-group by PatientID;
-```
+
+sql
+-- select count(distinct salesman_id) as COUNT
+from orders
+
+
+
 *Output:*
 
-![image](https://github.com/user-attachments/assets/b45b235a-cc86-420d-84ac-4c4a3aefb6d5)
+![Screenshot 2025-04-29 133004](https://github.com/user-attachments/assets/a87afd7f-b9d4-45fa-a6ea-86cd136bd9fd)
+
+
 
 ## RESULT
 Thus, the SQL queries to implement aggregate functions, GROUP BY, and HAVING clause have been executed successfully.
